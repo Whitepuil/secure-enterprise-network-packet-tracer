@@ -57,8 +57,8 @@ The following items must only be marked as completed after successful implementa
 - [X] VLANs and access ports
 - [X] IEEE 802.1Q trunking
 - [X] Inter-VLAN routing with SVIs
-- [ ] Centralized DHCP and DHCP relay
-- [ ] Internal DNS and HTTP services
+- [X] Centralized DHCP and DHCP relay
+- [X] Internal DNS and HTTP services
 - [ ] Static and default routing
 - [ ] NAT overload/PAT
 - [ ] Extended ACLs
@@ -106,6 +106,24 @@ Test results will be published in [`docs/test-results.md`](docs/test-results.md)
 ![Connected routes](screenshots/tc-16-connected-routes.png)
 
 ![Inter-VLAN connectivity](screenshots/tc-17-inter-vlan-connectivity.png)
+
+### Completed Network Services Verification
+
+- A centralized DHCP server was deployed in VLAN 50 at `192.168.50.10`.
+- Five DHCP pools were created for the IT, HR, Accounting, Employees, and Guest VLANs.
+- DHCP relay was configured on the corresponding core switch SVIs.
+- Clients in different VLANs successfully received the correct IPv4 address, subnet mask, default gateway, and DNS server.
+- Internal DNS successfully resolved `intranet.company.local` to `192.168.50.10`.
+- The internal HTTP portal was successfully accessed by hostname from a client VLAN.
+- Guest access to the internal portal remains temporarily allowed until access-control policies are applied.
+
+![IT DHCP lease](screenshots/tc-04-it-dhcp-lease.png)
+
+![Guest DHCP lease](screenshots/tc-04-guest-dhcp-lease.png)
+
+![Internal DNS resolution](screenshots/tc-05-dns-resolution.png)
+
+![Internal HTTP portal](screenshots/tc-05-intranet-http.png)
 
 ## Repository Structure
 
