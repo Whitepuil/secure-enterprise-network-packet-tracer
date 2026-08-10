@@ -22,6 +22,7 @@ The repository documents the complete workflow from requirements and addressing 
 ## Architecture
 
 Topology image will be added after the initial Packet Tracer design is completed. The planned cabling and interface map are documented in [`docs/interface-map.md`](docs/interface-map.md).
+![Physical network topology](diagrams/physical-topology.png)
 
 ## Device Inventory
 
