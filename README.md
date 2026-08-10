@@ -22,6 +22,7 @@ The repository documents the complete workflow from requirements and addressing 
 ## Architecture
 
 Topology image will be added after the initial Packet Tracer design is completed. The planned cabling and interface map are documented in [`docs/interface-map.md`](docs/interface-map.md).
+
 ![Physical network topology](diagrams/physical-topology.png)
 
 ## Device Inventory
@@ -53,8 +54,8 @@ Topology image will be added after the initial Packet Tracer design is completed
 
 The following items must only be marked as completed after successful implementation and verification:
 
-- [ ] VLANs and access ports
-- [ ] IEEE 802.1Q trunking
+- [X] VLANs and access ports
+- [X] IEEE 802.1Q trunking
 - [ ] Inter-VLAN routing with SVIs
 - [ ] Centralized DHCP and DHCP relay
 - [ ] Internal DNS and HTTP services
@@ -80,6 +81,16 @@ The following items must only be marked as completed after successful implementa
 ## Verification Summary
 
 Test results will be published in [`docs/test-results.md`](docs/test-results.md) after each control is implemented.
+### Completed Layer 2 Verification
+
+- VLANs 10, 20, 30, 40, 50, 60, 99, and 999 were created successfully.
+- Access ports were assigned to their intended departmental VLANs.
+- Three IEEE 802.1Q trunks are operational between the core and access switches.
+- VLAN 999 is used as the native VLAN on trunk links.
+
+![VLAN verification](screenshots/tc-01-vlan-brief.png)
+
+![Trunk verification](screenshots/tc-02-trunk-status.png)
 
 ## Repository Structure
 

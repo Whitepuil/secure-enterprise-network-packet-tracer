@@ -4,8 +4,8 @@ Do not mark a test as Pass until it has been executed. Add the evidence filename
 
 | ID | Source | Destination/Check | Expected | Actual | Result | Evidence |
 |---|---|---|---|---|---|---|
-| TC-01 | SW-CORE-L3 | `show vlan brief` | VLANs 10-60, 99, 999 exist | Pending | Pending | Pending |
-| TC-02 | SW-CORE-L3 | `show interfaces trunk` | Three active trunks | Pending | Pending | Pending |
+| TC-01 | SW-CORE-L3 | `show vlan brief` | VLANs 10-60, 99, 999 exist | Required VLANs are active and Fa0/24 is assigned to VLAN 50 | Pass | [View evidence](../screenshots/tc-01-vlan-brief.png) |
+| TC-02 | SW-CORE-L3 | `show interfaces trunk` | Three active trunks | Fa0/1, Fa0/2 and Fa0/3 are trunking with native VLAN 999 | Pass | [View evidence](../screenshots/tc-02-trunk-status.png)  |
 | TC-03 | IT-PC-01 | Default gateway | Reachable | Pending | Pending | Pending |
 | TC-04 | HR-PC-01 | DHCP | Receives 192.168.20.0/24 lease | Pending | Pending | Pending |
 | TC-05 | EMP-PC-01 | `intranet.company.local` | DNS resolves and HTTP opens | Pending | Pending | Pending |
