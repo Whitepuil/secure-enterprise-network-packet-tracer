@@ -59,8 +59,8 @@ The following items must only be marked as completed after successful implementa
 - [X] Inter-VLAN routing with SVIs
 - [X] Centralized DHCP and DHCP relay
 - [X] Internal DNS and HTTP services
-- [ ] Static and default routing
-- [ ] NAT overload/PAT
+- [X] Static and default routing
+- [X] NAT overload/PAT
 - [ ] Extended ACLs
 - [ ] SSH management restriction
 - [ ] Switch port security
@@ -124,6 +124,28 @@ Test results will be published in [`docs/test-results.md`](docs/test-results.md)
 ![Internal DNS resolution](screenshots/tc-05-dns-resolution.png)
 
 ![Internal HTTP portal](screenshots/tc-05-intranet-http.png)
+
+### Completed Edge and Internet Verification
+
+- A routed `/30` transit link was configured between the multilayer core switch and the enterprise edge router.
+- Static summary and default routes were configured to provide bidirectional internal routing and simulated ISP connectivity.
+- NAT overload translated private departmental addresses to the edge router address `203.0.113.2`.
+- Dynamic ICMP and TCP translations were observed for clients in the IT and Guest VLANs.
+- Internal DNS resolved `public.example.test` to the simulated public server at `198.51.100.10`.
+- The public web service was successfully accessed from both trusted and Guest client VLANs.
+- A four-hop traceroute verified the forwarding path through the core switch, edge router, ISP router, and public server.
+
+![Public website access](screenshots/tc-06-public-web-access.png)
+
+![NAT translations](screenshots/tc-07-nat-translations.png)
+
+![NAT statistics](screenshots/tc-07-nat-statistics.png)
+
+![Core routing table](screenshots/tc-18-core-routing-table.png)
+
+![Edge routing table](screenshots/tc-19-edge-routing-table.png)
+
+![Public traceroute](screenshots/tc-20-public-traceroute.png)
 
 ## Repository Structure
 
