@@ -1,0 +1,21 @@
+# Packet Tracer backup and temporary files
+*.pkt.autosave
+*.bak
+*.tmp
+~$*
+
+# Operating system files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Editor files
+.vscode/
+*.swp
+
+# Never publish secrets
+.env
+*.key
+*.pem
+secrets.*
+
