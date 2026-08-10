@@ -56,7 +56,7 @@ The following items must only be marked as completed after successful implementa
 
 - [X] VLANs and access ports
 - [X] IEEE 802.1Q trunking
-- [ ] Inter-VLAN routing with SVIs
+- [X] Inter-VLAN routing with SVIs
 - [ ] Centralized DHCP and DHCP relay
 - [ ] Internal DNS and HTTP services
 - [ ] Static and default routing
@@ -91,6 +91,21 @@ Test results will be published in [`docs/test-results.md`](docs/test-results.md)
 ![VLAN verification](screenshots/tc-01-vlan-brief.png)
 
 ![Trunk verification](screenshots/tc-02-trunk-status.png)
+
+### Completed Layer 3 Verification
+
+- Seven switched virtual interfaces were configured as departmental default gateways.
+- IP routing was enabled on the multilayer core switch.
+- The core switch learned all departmental networks as directly connected routes.
+- Management VLAN connectivity was verified between the core and access switches.
+- Inter-VLAN connectivity was successfully tested between the IT, HR, and Server VLANs.
+- No access-control lists are applied at this stage, so inter-VLAN traffic is temporarily permitted for baseline verification.
+
+![SVI status](screenshots/tc-15-svi-status.png)
+
+![Connected routes](screenshots/tc-16-connected-routes.png)
+
+![Inter-VLAN connectivity](screenshots/tc-17-inter-vlan-connectivity.png)
 
 ## Repository Structure
 
