@@ -17,7 +17,7 @@ Do not mark a test as Pass until it has been executed. Add the evidence filename
 | TC-11 | ACC-PC-01 | HR-PC-01 | Denied | The Accounting gateway rejected traffic to the HR VLAN while internal server access remained available | Pass | [View evidence](../screenshots/tc-11-accounting-isolation.png) |
 | TC-12 | IT-PC-01 | SSH to SW-ACCESS-01 | Allowed | The IT client authenticated successfully through SSH version 2 and reached the privileged device prompt | Pass | [View evidence](../screenshots/tc-12-it-ssh-allowed.png) |
 | TC-13 | HR-PC-01 | SSH to SW-ACCESS-01 | Denied | The connection was rejected before authentication by the VTY source restriction | Pass | [View evidence](../screenshots/tc-13-hr-ssh-denied.png) |
-| TC-14 | Access switch | Port Security status | Secure-up on used access ports | Pending | Pending | Pending |
+| TC-14 | SW-ACCESS-01 | Port Security status | Secure-up with one sticky MAC per used access port | Fa0/1 and Fa0/2 remained secure-up with one learned SecureSticky address and restrict mode enabled | Pass | [View evidence](../screenshots/tc-14-port-security-status.png) |
 | TC-15 | SW-CORE-L3 | `show ip interface brief` | VLAN 10-60 and 99 SVIs are up/up | Seven routed SVIs are operational with their assigned gateway addresses | Pass | [View evidence](../screenshots/tc-15-svi-status.png) |
 | TC-16 | SW-CORE-L3 | `show ip route` | Department networks appear as connected routes | Seven VLAN networks are installed as directly connected routes | Pass | [View evidence](../screenshots/tc-16-connected-routes.png) |
 | TC-17 | IT-PC-01 | HR-PC-01 and SRV-INTERNAL | Inter-VLAN destinations are reachable | IT-PC-01 reached VLAN 20 and VLAN 50 with 0% packet loss | Pass | [View evidence](../screenshots/tc-17-inter-vlan-connectivity.png) |
@@ -27,6 +27,9 @@ Do not mark a test as Pass until it has been executed. Add the evidence filename
 | TC-21 | SW-CORE-L3 | `show access-lists` | Permit and deny counters increase for tested traffic | Guest, HR, and Accounting ACL entries matched the expected DHCP, DNS, private-deny, and public-permit traffic | Pass | [View evidence](../screenshots/tc-21-acl-counters.png) |
 | TC-22 | SW-ACCESS-01 | SSH version and VTY ACL | SSHv2 is enabled and only VLAN 10 is permitted | SSH version 2 was active and both permit and deny ACL counters increased during testing | Pass | [View evidence](../screenshots/tc-22-ssh-v2-acl.png) |
 | TC-23 | IT-PC-01 | Telnet to SW-ACCESS-01 | Denied | Telnet was rejected because the VTY lines accept only SSH | Pass | [View evidence](../screenshots/tc-23-telnet-denied.png) |
+| TC-24 | Unauthorized test endpoint | SW-ACCESS-01 Fa0/1 | Traffic is dropped and the violation counter increases | The unauthorized MAC address was rejected while the port remained secure-up in restrict mode | Pass | [View evidence](../screenshots/tc-24-port-security-violation.png) |
+| TC-25 | SW-ACCESS-01 | Unused interface status | Unused ports are assigned to VLAN 999 and administratively disabled | Fa0/3-Fa0/24 and G0/2 were disabled while the PC ports and G0/1 uplink remained operational | Pass | [View evidence](../screenshots/tc-25-access-unused-ports.png) |
+| TC-26 | SW-CORE-L3 | Black-hole VLAN assignment | Unused core ports are assigned to VLAN 999 without affecting active links | Fa0/4-Fa0/23 and G0/2 were placed in VLAN 999 while Fa0/24 remained in VLAN 50 and trunk links remained operational | Pass | [View evidence](../screenshots/tc-26-core-blackhole-vlan.png) |
 
 ## Troubleshooting Record
 

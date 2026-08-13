@@ -22,8 +22,8 @@ A small company needs a structured network for IT, Human Resources, Accounting, 
 - [X] An edge router provides default routing and NAT overload.
 - [X] Extended ACLs enforce departmental access policy.
 - [X] SSH replaces Telnet for device administration.
-- [ ] Port Security protects user-facing access ports.
-- [ ] Unused ports are assigned to VLAN 999 and administratively disabled.
+- [X] Port Security protects user-facing access ports.
+- [X] Unused ports are assigned to VLAN 999 and administratively disabled.
 
 ## Acceptance Criteria
 

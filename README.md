@@ -66,8 +66,8 @@ The following items must only be marked as completed after successful implementa
 - [X] NAT overload/PAT
 - [X] Extended ACLs
 - [X] SSH management restriction
-- [ ] Switch port security
-- [ ] Unused-port shutdown and black-hole VLAN
+- [X] Switch port security
+- [X] Unused-port shutdown and black-hole VLAN
 
 ## Security Policy
 
@@ -184,6 +184,24 @@ Test results will be published in [`docs/test-results.md`](docs/test-results.md)
 ![SSH version and management ACL](screenshots/tc-22-ssh-v2-acl.png)
 
 ![Telnet access denied](screenshots/tc-23-telnet-denied.png)
+
+### Completed Access-Layer Hardening Verification
+
+- Port Security was enabled on all user-facing access ports and the internal server port.
+- Each protected port permits a maximum of one dynamically learned sticky MAC address.
+- Restrict mode drops frames from unauthorized MAC addresses without disabling the entire port.
+- An unauthorized test endpoint was blocked and increased the security violation counter.
+- PortFast and BPDU Guard were enabled on endpoint-facing access ports.
+- Unused access-switch and core-switch ports were assigned to VLAN 999 and administratively disabled.
+- Trunk, routed, server, and legitimate user interfaces remained operational after hardening.
+
+![Port Security status](screenshots/tc-14-port-security-status.png)
+
+![Port Security violation](screenshots/tc-24-port-security-violation.png)
+
+![Disabled access-switch ports](screenshots/tc-25-access-unused-ports.png)
+
+![Core black-hole VLAN](screenshots/tc-26-core-blackhole-vlan.png)
 
 ## Repository Structure
 
