@@ -65,7 +65,7 @@ The following items must only be marked as completed after successful implementa
 - [X] Static and default routing
 - [X] NAT overload/PAT
 - [X] Extended ACLs
-- [ ] SSH management restriction
+- [X] SSH management restriction
 - [ ] Switch port security
 - [ ] Unused-port shutdown and black-hole VLAN
 
@@ -166,6 +166,24 @@ Test results will be published in [`docs/test-results.md`](docs/test-results.md)
 ![Accounting isolation](screenshots/tc-11-accounting-isolation.png)
 
 ![ACL counters](screenshots/tc-21-acl-counters.png)
+
+### Completed Secure Management Verification
+
+- SSH version 2 was enabled on the enterprise core switch, access switches, and edge router.
+- Local administrative authentication was configured for the Packet Tracer lab.
+- A standard VTY access control list restricts remote device management to the IT VLAN.
+- IT administrators successfully accessed enterprise network devices through SSH.
+- SSH attempts originating from the HR VLAN were denied before authentication.
+- Telnet access was disabled by allowing only SSH on the VTY lines.
+- Permit and deny counters confirmed that the management ACL processed the expected traffic.
+
+![IT SSH access allowed](screenshots/tc-12-it-ssh-allowed.png)
+
+![HR SSH access denied](screenshots/tc-13-hr-ssh-denied.png)
+
+![SSH version and management ACL](screenshots/tc-22-ssh-v2-acl.png)
+
+![Telnet access denied](screenshots/tc-23-telnet-denied.png)
 
 ## Repository Structure
 

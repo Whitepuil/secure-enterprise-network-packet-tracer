@@ -15,8 +15,8 @@ Do not mark a test as Pass until it has been executed. Add the evidence filename
 | TC-09 | GUEST-PC-01 | SRV-PUBLIC `198.51.100.10` | Allowed | ICMP completed with 0% packet loss and the public website remained accessible | Pass | [View evidence](../screenshots/tc-09-guest-public-web-allowed.png) |
 | TC-10 | HR-PC-01 | ACC-PC-01 | Denied | The HR gateway rejected traffic to the Accounting VLAN while internal server access remained available | Pass | [View evidence](../screenshots/tc-10-hr-isolation.png) |
 | TC-11 | ACC-PC-01 | HR-PC-01 | Denied | The Accounting gateway rejected traffic to the HR VLAN while internal server access remained available | Pass | [View evidence](../screenshots/tc-11-accounting-isolation.png) |
-| TC-12 | IT-PC-01 | SSH to SW-ACCESS-01 | Allowed | Pending | Pending | Pending |
-| TC-13 | HR-PC-01 | SSH to SW-ACCESS-01 | Denied | Pending | Pending | Pending |
+| TC-12 | IT-PC-01 | SSH to SW-ACCESS-01 | Allowed | The IT client authenticated successfully through SSH version 2 and reached the privileged device prompt | Pass | [View evidence](../screenshots/tc-12-it-ssh-allowed.png) |
+| TC-13 | HR-PC-01 | SSH to SW-ACCESS-01 | Denied | The connection was rejected before authentication by the VTY source restriction | Pass | [View evidence](../screenshots/tc-13-hr-ssh-denied.png) |
 | TC-14 | Access switch | Port Security status | Secure-up on used access ports | Pending | Pending | Pending |
 | TC-15 | SW-CORE-L3 | `show ip interface brief` | VLAN 10-60 and 99 SVIs are up/up | Seven routed SVIs are operational with their assigned gateway addresses | Pass | [View evidence](../screenshots/tc-15-svi-status.png) |
 | TC-16 | SW-CORE-L3 | `show ip route` | Department networks appear as connected routes | Seven VLAN networks are installed as directly connected routes | Pass | [View evidence](../screenshots/tc-16-connected-routes.png) |
@@ -25,6 +25,8 @@ Do not mark a test as Pass until it has been executed. Add the evidence filename
 | TC-19 | R1-EDGE | Edge routing table | Internal summary and ISP default routes exist | `192.168.0.0/16` points to the core and `0.0.0.0/0` points to `203.0.113.1` | Pass | [View evidence](../screenshots/tc-19-edge-routing-table.png) |
 | TC-20 | IT-PC-01 | `tracert 198.51.100.10` | Trace crosses the core, edge, ISP, and public server | Four hops completed through `192.168.10.1`, `10.255.255.1`, `203.0.113.1`, and `198.51.100.10` | Pass | [View evidence](../screenshots/tc-20-public-traceroute.png) |
 | TC-21 | SW-CORE-L3 | `show access-lists` | Permit and deny counters increase for tested traffic | Guest, HR, and Accounting ACL entries matched the expected DHCP, DNS, private-deny, and public-permit traffic | Pass | [View evidence](../screenshots/tc-21-acl-counters.png) |
+| TC-22 | SW-ACCESS-01 | SSH version and VTY ACL | SSHv2 is enabled and only VLAN 10 is permitted | SSH version 2 was active and both permit and deny ACL counters increased during testing | Pass | [View evidence](../screenshots/tc-22-ssh-v2-acl.png) |
+| TC-23 | IT-PC-01 | Telnet to SW-ACCESS-01 | Denied | Telnet was rejected because the VTY lines accept only SSH | Pass | [View evidence](../screenshots/tc-23-telnet-denied.png) |
 
 ## Troubleshooting Record
 

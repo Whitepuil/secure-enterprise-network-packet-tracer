@@ -11,7 +11,7 @@ A small company needs a structured network for IT, Human Resources, Accounting, 
 - [X] Internal name resolution and web services are available.
 - [X] Business users can access a simulated public network.
 - [X] Guest devices cannot access internal private networks.
-- [ ] Only IT administrators can remotely manage network devices.
+- [X] Only IT administrators can remotely manage network devices.
 
 ## Technical Requirements
 
@@ -21,7 +21,7 @@ A small company needs a structured network for IT, Human Resources, Accounting, 
 - [X] A central server provides DHCP, DNS, and HTTP.
 - [X] An edge router provides default routing and NAT overload.
 - [X] Extended ACLs enforce departmental access policy.
-- [ ] SSH replaces Telnet for device administration.
+- [X] SSH replaces Telnet for device administration.
 - [ ] Port Security protects user-facing access ports.
 - [ ] Unused ports are assigned to VLAN 999 and administratively disabled.
 

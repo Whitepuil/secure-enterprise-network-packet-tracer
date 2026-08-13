@@ -16,9 +16,9 @@
 
 ## Device Hardening
 
-- [ ] Telnet is not allowed.
-- [ ] SSH is restricted to VLAN 10.
-- [ ] Privileged mode uses an enable secret.
+- [X] Telnet is not allowed.
+- [X] SSH is restricted to VLAN 10.
+- [X] Privileged mode uses an enable secret.
 - [ ] User-facing ports use Port Security.
 - [ ] Unused ports are placed in VLAN 999 and shut down.
 - [ ] Device configurations exported to GitHub have secrets redacted.
