@@ -21,7 +21,10 @@ The repository documents the complete workflow from requirements and addressing 
 
 ## Architecture
 
-Topology image will be added after the initial Packet Tracer design is completed. The planned cabling and interface map are documented in [`docs/interface-map.md`](docs/interface-map.md).
+The topology follows a hierarchical enterprise design with an access layer,
+a multilayer core switch, an enterprise edge router, and a simulated ISP
+network. The detailed cabling and interface assignments are documented in
+[`docs/interface-map.md`](docs/interface-map.md).
 
 ![Physical network topology](diagrams/physical-topology.png)
 
@@ -115,7 +118,7 @@ Test results will be published in [`docs/test-results.md`](docs/test-results.md)
 - Clients in different VLANs successfully received the correct IPv4 address, subnet mask, default gateway, and DNS server.
 - Internal DNS successfully resolved `intranet.company.local` to `192.168.50.10`.
 - The internal HTTP portal was successfully accessed by hostname from a client VLAN.
-- Guest access to the internal portal remains temporarily allowed until access-control policies are applied.
+- Guest access was temporarily permitted during baseline service verification and was later restricted by the access-control policies documented below.
 
 ![IT DHCP lease](screenshots/tc-04-it-dhcp-lease.png)
 
