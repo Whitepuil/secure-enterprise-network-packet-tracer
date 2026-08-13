@@ -168,7 +168,7 @@ configure terminal
 hostname SW-CORE-L3
 no ip domain-lookup
 service password-encryption
-enable secret LabEnableOnly2026
+enable secret <LAB_ENABLE_SECRET>
 banner motd #AUTHORIZED LAB ACCESS ONLY#
 line console 0
  logging synchronous
@@ -706,9 +706,10 @@ Thực hiện trên router và switch cần quản trị.
 enable
 configure terminal
 ip domain-name company.local
-username netadmin privilege 15 secret LabSSHOnly2026
+username netadmin privilege 15 secret <LAB_SSH_SECRET>
 crypto key generate rsa
 ```
+> Replace all placeholders with private lab-only credentials. Never commit real passwords or reusable credentials to a public repository.
 
 Khi hỏi modulus, nhập `1024` hoặc `2048` nếu model hỗ trợ.
 

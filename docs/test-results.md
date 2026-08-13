@@ -30,6 +30,7 @@ Do not mark a test as Pass until it has been executed. Add the evidence filename
 | TC-24 | Unauthorized test endpoint | SW-ACCESS-01 Fa0/1 | Traffic is dropped and the violation counter increases | The unauthorized MAC address was rejected while the port remained secure-up in restrict mode | Pass | [View evidence](../screenshots/tc-24-port-security-violation.png) |
 | TC-25 | SW-ACCESS-01 | Unused interface status | Unused ports are assigned to VLAN 999 and administratively disabled | Fa0/3-Fa0/24 and G0/2 were disabled while the PC ports and G0/1 uplink remained operational | Pass | [View evidence](../screenshots/tc-25-access-unused-ports.png) |
 | TC-26 | SW-CORE-L3 | Black-hole VLAN assignment | Unused core ports are assigned to VLAN 999 without affecting active links | Fa0/4-Fa0/23 and G0/2 were placed in VLAN 999 while Fa0/24 remained in VLAN 50 and trunk links remained operational | Pass | [View evidence](../screenshots/tc-26-core-blackhole-vlan.png) |
+| TC-27 | Final saved topology | Post-reload regression validation | Core trunks, routed SVIs, routing and security controls remain operational | The final Packet Tracer file was reopened successfully; three trunks, seven routed SVIs, the routed uplink, ACL enforcement, SSH management, NAT and access-layer security remained operational | Pass | [View evidence](../screenshots/tc-27-final-regression.png) |
 
 ## Troubleshooting Record
 

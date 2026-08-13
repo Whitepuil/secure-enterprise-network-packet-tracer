@@ -1,0 +1,317 @@
+SW-CORE-L3#show running-config
+Building configuration...
+
+Current configuration : 6729 bytes
+!
+version 12.2(37)SE1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname SW-CORE-L3
+!
+!
+enable secret 5 <REDACTED>
+!
+!
+!
+!
+!
+ip routing
+!
+!
+!
+!
+username netadmin privilege 15 secret 5 <REDACTED>
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip ssh version 2
+no ip domain-lookup
+ip domain-name company.local
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface FastEthernet0/1
+ description TRUNK_TO_SW-ACCESS-01_G0/1
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,20,30,40,50,60,99,999
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface FastEthernet0/2
+ description TRUNK_TO_SW-ACCESS-02_G0/1
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,20,30,40,50,60,99,999
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface FastEthernet0/3
+ description TRUNK_TO_SW-ACCESS-03_G0/1
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,20,30,40,50,60,99,999
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface FastEthernet0/4
+ description UNUSED_DISABLED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/5
+ description UNUSED_DISABLED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/6
+ description UNUSED_DISABLED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/7
+ description UNUSED_DISABLED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/8
+ description UNUSED_DISABLED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/9
+ description UNUSED_DISABLED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/10
+ description UNUSED_DISABLED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/11
+ description UNUSED_DISABLED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/12
+ description UNUSED_DISABLED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/13
+ description UNUSED_DISABLED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/14
+ description UNUSED_DISABLED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/15
+ description UNUSED_DISABLED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/16
+ description UNUSED_DISABLED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/17
+ description UNUSED_DISABLED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/18
+ description UNUSED_DISABLED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/19
+ description UNUSED_DISABLED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/20
+ description UNUSED_DISABLED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/21
+ description UNUSED_DISABLED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/22
+ description UNUSED_DISABLED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/23
+ description UNUSED_DISABLED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/24
+ description SRV-INTERNAL
+ switchport access vlan 50
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security violation restrict 
+ switchport port-security mac-address sticky 0004.9AEB.E863
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/1
+ no switchport
+ ip address 10.255.255.2 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ description UNUSED_DISABLED
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan10
+ description GATEWAY_IT
+ mac-address 00d0.ffd0.4101
+ ip address 192.168.10.1 255.255.255.0
+ ip helper-address 192.168.50.10
+!
+interface Vlan20
+ description GATEWAY_HR
+ mac-address 00d0.ffd0.4102
+ ip address 192.168.20.1 255.255.255.0
+ ip helper-address 192.168.50.10
+ ip access-group HR_IN in
+!
+interface Vlan30
+ description GATEWAY_ACCOUNTING
+ mac-address 00d0.ffd0.4103
+ ip address 192.168.30.1 255.255.255.0
+ ip helper-address 192.168.50.10
+ ip access-group ACCOUNTING_IN in
+!
+interface Vlan40
+ description GATEWAY_EMPLOYEES
+ mac-address 00d0.ffd0.4104
+ ip address 192.168.40.1 255.255.255.0
+ ip helper-address 192.168.50.10
+!
+interface Vlan50
+ description GATEWAY_SERVERS
+ mac-address 00d0.ffd0.4105
+ ip address 192.168.50.1 255.255.255.0
+!
+interface Vlan60
+ description GATEWAY_GUEST
+ mac-address 00d0.ffd0.4106
+ ip address 192.168.60.1 255.255.255.0
+ ip helper-address 192.168.50.10
+ ip access-group GUEST_IN in
+!
+interface Vlan99
+ description GATEWAY_MANAGEMENT
+ mac-address 00d0.ffd0.4107
+ ip address 192.168.99.1 255.255.255.0
+!
+ip classless
+ip route 0.0.0.0 0.0.0.0 10.255.255.1 
+!
+ip flow-export version 9
+!
+!
+ip access-list extended GUEST_IN
+ remark ALLOW_DHCP_TO_CENTRAL_SERVER
+ permit udp any eq bootpc any eq bootps
+ remark ALLOW_DNS_TO_INTERNAL_DNS_SERVER
+ permit udp 192.168.60.0 0.0.0.255 host 192.168.50.10 eq domain
+ permit tcp 192.168.60.0 0.0.0.255 host 192.168.50.10 eq domain
+ remark ALLOW_GUEST_TO_PING_ITS_GATEWAY
+ permit icmp 192.168.60.0 0.0.0.255 host 192.168.60.1 echo
+ remark DENY_GUEST_TO_PRIVATE_NETWORKS
+ deny ip 192.168.60.0 0.0.0.255 10.0.0.0 0.255.255.255
+ deny ip 192.168.60.0 0.0.0.255 172.16.0.0 0.15.255.255
+ deny ip 192.168.60.0 0.0.0.255 192.168.0.0 0.0.255.255
+ remark ALLOW_GUEST_TO_PUBLIC_NETWORKS
+ permit ip 192.168.60.0 0.0.0.255 any
+ip access-list extended HR_IN
+ remark ALLOW_DHCP_TO_CENTRAL_SERVER
+ permit udp any eq bootpc any eq bootps
+ remark DENY_HR_TO_ACCOUNTING
+ deny ip 192.168.20.0 0.0.0.255 192.168.30.0 0.0.0.255
+ remark ALLOW_OTHER_HR_TRAFFIC
+ permit ip 192.168.20.0 0.0.0.255 any
+ip access-list extended ACCOUNTING_IN
+ remark ALLOW_DHCP_TO_CENTRAL_SERVER
+ permit udp any eq bootpc any eq bootps
+ remark DENY_ACCOUNTING_TO_HR
+ deny ip 192.168.30.0 0.0.0.255 192.168.20.0 0.0.0.255
+ remark ALLOW_OTHER_ACCOUNTING_TRAFFIC
+ permit ip 192.168.30.0 0.0.0.255 any
+ip access-list standard SSH_FROM_IT
+ remark ALLOW_ONLY_IT_VLAN
+ permit 192.168.10.0 0.0.0.255
+ deny any
+!
+banner motd ^CAUTHORIZED LAB ACCESS ONLY^C
+!
+!
+!
+!
+!
+line con 0
+ logging synchronous
+!
+line aux 0
+!
+line vty 0 4
+ access-class SSH_FROM_IT in
+ login local
+ transport input ssh
+!
+!
+!
+!
+end

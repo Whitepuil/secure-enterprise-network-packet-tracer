@@ -1,6 +1,6 @@
 # Secure Segmented Enterprise Network in Cisco Packet Tracer
 
-> Status: Planning and implementation in progress.
+> Status: Completed and fully verified.
 
 ## Overview
 
@@ -83,7 +83,7 @@ The following items must only be marked as completed after successful implementa
 
 ## Verification Summary
 
-Test results will be published in [`docs/test-results.md`](docs/test-results.md) after each control is implemented.
+All implementation and security controls were validated through 27 documented test cases in [`docs/test-results.md`](docs/test-results.md).
 ### Completed Layer 2 Verification
 
 - VLANs 10, 20, 30, 40, 50, 60, 99, and 999 were created successfully.
@@ -203,6 +203,18 @@ Test results will be published in [`docs/test-results.md`](docs/test-results.md)
 
 ![Core black-hole VLAN](screenshots/tc-26-core-blackhole-vlan.png)
 
+### Final Regression Verification
+
+- The final Packet Tracer topology was saved, closed, and reopened successfully.
+- Three core-to-access IEEE 802.1Q trunks remained operational with native VLAN 999.
+- Seven routed SVIs and the core-to-edge routed interface remained up/up.
+- DHCP, DNS, internal services, simulated Internet access, and NAT remained operational.
+- Guest, HR, and Accounting access-control policies continued to enforce the intended segmentation.
+- SSH management remained restricted to the IT VLAN.
+- Port Security and unused-port hardening remained active after reopening the final file.
+
+![Final regression verification](screenshots/tc-27-final-regression.png)
+
 ## Repository Structure
 
 ```text
@@ -215,6 +227,18 @@ Test results will be published in [`docs/test-results.md`](docs/test-results.md)
 ├── PROJECT_GUIDE_VI.md   Detailed Vietnamese implementation guide
 └── README.md             Public project documentation
 ```
+## Skills Demonstrated
+
+- Designed a hierarchical enterprise network with core, access, edge, and simulated ISP layers.
+- Implemented departmental segmentation using VLANs and IEEE 802.1Q trunks.
+- Configured inter-VLAN routing with multilayer-switch SVIs.
+- Deployed centralized DHCP, DHCP relay, DNS, and internal HTTP services.
+- Implemented static routing, default routing, and NAT overload.
+- Enforced Guest, HR, and Accounting segmentation through extended ACLs.
+- Restricted network-device management to SSH version 2 from the IT VLAN.
+- Hardened endpoint-facing ports with Port Security, PortFast, and BPDU Guard.
+- Disabled unused switch interfaces and assigned them to a black-hole VLAN.
+- Created and executed 27 documented verification and security test cases.
 
 ## How to Use
 
@@ -226,7 +250,21 @@ Test results will be published in [`docs/test-results.md`](docs/test-results.md)
 
 ## Challenges and Troubleshooting
 
-This section will document real implementation problems, diagnostic commands, root causes, and fixes. It will not be filled with hypothetical issues.
+### Public hostname resolution failure
+
+Clients could initially reach the simulated public server by IP address but could not resolve `public.example.test`. The DNS record had mistakenly been created on the public server instead of the centralized internal DNS server. The record was recreated on `SRV-INTERNAL`, after which DNS resolution and hostname-based HTTP access succeeded.
+
+### ACL verification inconsistency
+
+Packet Tracer did not always display the inbound ACL name correctly in `show ip interface vlan` output. ACL attachment was therefore verified through the running configuration, ACL match counters, and functional traffic tests. Guest-to-private, HR-to-Accounting, and Accounting-to-HR traffic was successfully denied.
+
+### Port Security recovery
+
+A temporary unauthorized endpoint triggered Port Security on an access port. Restrict mode dropped traffic from the unauthorized MAC address without disabling the port. After reconnecting the legitimate endpoint, normal connectivity was restored while the violation counter remained available as evidence.
+
+### Initial packet loss after reopening
+
+The first ping to the simulated public network experienced temporary packet loss while devices relearned ARP, MAC-address, and forwarding information. A repeated test completed with 0% packet loss, confirming normal operation after convergence.
 
 ## Limitations
 
