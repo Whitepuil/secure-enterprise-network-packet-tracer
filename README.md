@@ -61,7 +61,7 @@ The following items must only be marked as completed after successful implementa
 - [X] Internal DNS and HTTP services
 - [X] Static and default routing
 - [X] NAT overload/PAT
-- [ ] Extended ACLs
+- [X] Extended ACLs
 - [ ] SSH management restriction
 - [ ] Switch port security
 - [ ] Unused-port shutdown and black-hole VLAN
@@ -146,6 +146,23 @@ Test results will be published in [`docs/test-results.md`](docs/test-results.md)
 ![Edge routing table](screenshots/tc-19-edge-routing-table.png)
 
 ![Public traceroute](screenshots/tc-20-public-traceroute.png)
+
+### Completed Access-Control Verification
+
+- Extended inbound ACLs were applied close to the source on the Guest, HR, and Accounting SVIs.
+- Guest clients are permitted to obtain DHCP leases and query the centralized DNS server.
+- Guest traffic to RFC 1918 private networks is denied while simulated public-network access remains available.
+- HR and Accounting user networks are mutually isolated.
+- HR and Accounting clients retain access to approved internal services and the simulated public network.
+- ACL match counters confirmed that permit and deny entries processed the expected test traffic.
+
+![Guest segmentation](screenshots/tc-08-guest-segmentation.png)
+
+![HR isolation](screenshots/tc-10-hr-isolation.png)
+
+![Accounting isolation](screenshots/tc-11-accounting-isolation.png)
+
+![ACL counters](screenshots/tc-21-acl-counters.png)
 
 ## Repository Structure
 

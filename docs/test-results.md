@@ -11,10 +11,10 @@ Do not mark a test as Pass until it has been executed. Add the evidence filename
 | TC-05 | EMP-PC-01 | `intranet.company.local` | DNS resolves and HTTP opens | DNS resolved the hostname to `192.168.50.10` and the internal portal loaded successfully | Pass | [DNS evidence](../screenshots/tc-05-dns-resolution.png), [HTTP evidence](../screenshots/tc-05-intranet-http.png) |
 | TC-06 | IT-PC-01 and GUEST-PC-01 | `public.example.test` | Public server is reachable through edge routing and NAT | DNS resolved `198.51.100.10`, ICMP completed with 0% loss, and the public website loaded successfully | Pass | [Website](../screenshots/tc-06-public-web-access.png), [Traceroute](../screenshots/tc-20-public-traceroute.png) |
 | TC-07 | R1-EDGE | NAT translation table | Dynamic translations appear for internal clients | IT and Guest private addresses were translated to `203.0.113.2` for ICMP and TCP traffic | Pass | [Translations](../screenshots/tc-07-nat-translations.png), [Statistics](../screenshots/tc-07-nat-statistics.png) |
-| TC-08 | GUEST-PC-01 | SRV-INTERNAL | Denied | Pending | Pending | Pending |
-| TC-09 | GUEST-PC-01 | SRV-PUBLIC | Allowed | Pending | Pending | Pending |
-| TC-10 | HR-PC-01 | ACC-PC-01 | Denied | Pending | Pending | Pending |
-| TC-11 | ACC-PC-01 | HR-PC-01 | Denied | Pending | Pending | Pending |
+| TC-08 | GUEST-PC-01 | SRV-INTERNAL `192.168.50.10` | Denied | DNS remained available, but ICMP and HTTP access to the internal server were blocked | Pass | [View evidence](../screenshots/tc-08-guest-segmentation.png) |
+| TC-09 | GUEST-PC-01 | SRV-PUBLIC `198.51.100.10` | Allowed | ICMP completed with 0% packet loss and the public website remained accessible | Pass | [View evidence](../screenshots/tc-09-guest-public-web-allowed.png) |
+| TC-10 | HR-PC-01 | ACC-PC-01 | Denied | The HR gateway rejected traffic to the Accounting VLAN while internal server access remained available | Pass | [View evidence](../screenshots/tc-10-hr-isolation.png) |
+| TC-11 | ACC-PC-01 | HR-PC-01 | Denied | The Accounting gateway rejected traffic to the HR VLAN while internal server access remained available | Pass | [View evidence](../screenshots/tc-11-accounting-isolation.png) |
 | TC-12 | IT-PC-01 | SSH to SW-ACCESS-01 | Allowed | Pending | Pending | Pending |
 | TC-13 | HR-PC-01 | SSH to SW-ACCESS-01 | Denied | Pending | Pending | Pending |
 | TC-14 | Access switch | Port Security status | Secure-up on used access ports | Pending | Pending | Pending |
@@ -24,6 +24,7 @@ Do not mark a test as Pass until it has been executed. Add the evidence filename
 | TC-18 | SW-CORE-L3 | Core routing table | A default route points to `10.255.255.1` | All VLAN routes are connected and the default route points to R1-EDGE | Pass | [View evidence](../screenshots/tc-18-core-routing-table.png) |
 | TC-19 | R1-EDGE | Edge routing table | Internal summary and ISP default routes exist | `192.168.0.0/16` points to the core and `0.0.0.0/0` points to `203.0.113.1` | Pass | [View evidence](../screenshots/tc-19-edge-routing-table.png) |
 | TC-20 | IT-PC-01 | `tracert 198.51.100.10` | Trace crosses the core, edge, ISP, and public server | Four hops completed through `192.168.10.1`, `10.255.255.1`, `203.0.113.1`, and `198.51.100.10` | Pass | [View evidence](../screenshots/tc-20-public-traceroute.png) |
+| TC-21 | SW-CORE-L3 | `show access-lists` | Permit and deny counters increase for tested traffic | Guest, HR, and Accounting ACL entries matched the expected DHCP, DNS, private-deny, and public-permit traffic | Pass | [View evidence](../screenshots/tc-21-acl-counters.png) |
 
 ## Troubleshooting Record
 
