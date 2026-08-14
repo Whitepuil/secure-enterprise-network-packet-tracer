@@ -21,5 +21,5 @@
 - [X] Privileged mode uses an enable secret.
 - [X] User-facing ports use Port Security.
 - [X] Unused ports are placed in VLAN 999 and shut down.
-- [ ] Device configurations exported to GitHub have secrets redacted.
+- [X] Device configurations exported to GitHub have secrets redacted.
 

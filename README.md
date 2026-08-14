@@ -170,9 +170,9 @@ All implementation and security controls were validated through 27 documented te
 ### Completed Secure Management Verification
 
 - SSH version 2 was enabled on the enterprise core switch, access switches, and edge router.
-- Local administrative authentication was configured for the Packet Tracer lab.
+- Local administrative authentication was configured using separate SSH login and enable secrets.
 - A standard VTY access control list restricts remote device management to the IT VLAN.
-- IT administrators successfully accessed enterprise network devices through SSH.
+- IT administrators authenticated to access switches in user EXEC mode and elevated to privileged EXEC mode using a separate enable secret.
 - SSH attempts originating from the HR VLAN were denied before authentication.
 - Telnet access was disabled by allowing only SSH on the VTY lines.
 - Permit and deny counters confirmed that the management ACL processed the expected traffic.
@@ -243,7 +243,7 @@ All implementation and security controls were validated through 27 documented te
 ## How to Use
 
 1. Install Cisco Packet Tracer.
-2. Download the final `.pkt` file from `packet-tracer/` after it is published.
+2. Download [`secure-enterprise-network-final.pkt`](packet-tracer/secure-enterprise-network-final.pkt).
 3. Open the file and allow device links to converge.
 4. Follow the test cases in `docs/test-results.md`.
 5. Review sanitized configurations under `configs/`.
@@ -262,6 +262,10 @@ Packet Tracer did not always display the inbound ACL name correctly in `show ip 
 
 A temporary unauthorized endpoint triggered Port Security on an access port. Restrict mode dropped traffic from the unauthorized MAC address without disabling the port. After reconnecting the legitimate endpoint, normal connectivity was restored while the violation counter remained available as evidence.
 
+### Access-switch privilege persistence
+
+The Packet Tracer 2960 switch accepted a local username configured with privilege level 15, but the privilege assignment was not retained reliably after saving and reopening the topology. Access-switch administration was therefore implemented with two-stage authentication: the administrator first authenticates through SSH in user EXEC mode and then uses a separate enable secret to enter privileged EXEC mode. The behavior was verified again after reopening the final Packet Tracer file.
+
 ### Initial packet loss after reopening
 
 The first ping to the simulated public network experienced temporary packet loss while devices relearned ARP, MAC-address, and forwarding information. A repeated test completed with 0% packet loss, confirming normal operation after convergence.
@@ -271,6 +275,7 @@ The first ping to the simulated public network experienced temporary packet loss
 - This project is a Cisco Packet Tracer simulation, not a production deployment.
 - Packet Tracer supports only a subset of Cisco IOS features.
 - High availability, dynamic routing, wireless infrastructure, firewall appliances, SIEM integration, and centralized AAA are outside the first release.
+- The Packet Tracer 2960 emulation did not reliably retain per-user privilege level 15, so access switches use separate SSH and enable authentication stages.
 
 ## Future Improvements
 

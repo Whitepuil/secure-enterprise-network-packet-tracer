@@ -1,7 +1,7 @@
 SW-ACCESS-03#show running-config
 Building configuration...
 
-Current configuration : 4243 bytes
+Current configuration : 4299 bytes
 !
 version 15.0
 no service timestamps log datetime msec
@@ -212,7 +212,9 @@ line vty 0 4
  login local
  transport input ssh
 line vty 5 15
- login
+ access-class SSH_FROM_IT in
+ login local
+ transport input ssh
 !
 !
 !

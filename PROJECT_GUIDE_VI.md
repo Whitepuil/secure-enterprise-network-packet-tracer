@@ -700,7 +700,11 @@ security: enforce inter-vlan access control policies
 
 ## 14. Mốc 8 - SSH chỉ cho VLAN IT
 
-Thực hiện trên router và switch cần quản trị.
+SSH version 2 được bật trên các thiết bị doanh nghiệp. Một standard ACL chỉ cho phép nguồn từ VLAN IT truy cập các VTY line.
+
+> Replace all placeholders with private lab-only credentials. Never commit real passwords or reusable credentials to a public repository.
+
+### Cấu hình trên SW-CORE-L3 và R1-EDGE
 
 ```text
 enable
@@ -709,42 +713,118 @@ ip domain-name company.local
 username netadmin privilege 15 secret <LAB_SSH_SECRET>
 crypto key generate rsa
 ```
-> Replace all placeholders with private lab-only credentials. Never commit real passwords or reusable credentials to a public repository.
 
-Khi hỏi modulus, nhập `1024` hoặc `2048` nếu model hỗ trợ.
+Khi được hỏi modulus, nhập `1024` hoặc `2048` nếu model hỗ trợ.
 
 ```text
 ip ssh version 2
-access-list 10 permit 192.168.10.0 0.0.0.255
+
+ip access-list standard SSH_FROM_IT
+ remark ALLOW_ONLY_IT_VLAN
+ permit 192.168.10.0 0.0.0.255
+ deny any
+exit
+
 line vty 0 4
+ access-class SSH_FROM_IT in
  login local
  transport input ssh
- access-class 10 in
  exec-timeout 10 0
 exit
+
 end
-write memory
+copy running-config startup-config
 ```
 
-Test từ IT-PC-01:
+### Cấu hình trên SW-ACCESS-01, SW-ACCESS-02 và SW-ACCESS-03
+
+Packet Tracer 2960 không lưu ổn định privilege level 15 được gắn trực tiếp vào local username. Vì vậy, access switch sử dụng hai lớp xác thực: SSH login và enable secret.
+
+```text
+enable
+configure terminal
+enable secret <LAB_ENABLE_SECRET>
+ip domain-name company.local
+username netadmin secret <LAB_SSH_SECRET>
+crypto key generate rsa
+```
+
+Khi được hỏi modulus, nhập `1024` hoặc `2048` nếu model hỗ trợ.
+
+```text
+ip ssh version 2
+
+ip access-list standard SSH_FROM_IT
+ remark ALLOW_ONLY_IT_VLAN
+ permit 192.168.10.0 0.0.0.255
+ deny any
+exit
+
+line vty 0 15
+ access-class SSH_FROM_IT in
+ login local
+ transport input ssh
+ exec-timeout 10 0
+exit
+
+end
+copy running-config startup-config
+```
+
+### Kiểm tra từ IT-PC-01
+
+Kết nối đến Access Switch:
 
 ```text
 ssh -l netadmin 192.168.99.11
 ```
 
-Test tương tự từ HR-PC-01 phải thất bại.
+Sau khi nhập `<LAB_SSH_SECRET>`, quản trị viên vào user EXEC mode:
+
+```text
+SW-ACCESS-01>
+```
 
 Kiểm tra:
 
 ```text
-show ip ssh
-show access-lists 10
-show users
+show privilege
 ```
 
-Không chụp hoặc đưa mật khẩu lab vào README. Trước khi xuất cấu hình public, thay secret bằng `<REDACTED>` trong file `.txt`; không sửa file `.pkt` đang dùng để demo.
+Kết quả mong đợi:
 
-Commit:
+```text
+Current privilege level is 1
+```
+
+Nâng lên privileged EXEC bằng enable secret riêng:
+
+```text
+enable
+show privilege
+```
+
+Kết quả mong đợi:
+
+```text
+SW-ACCESS-01#
+Current privilege level is 15
+```
+
+SSH từ HR-PC-01 phải bị từ chối trước khi xác thực. Telnet phải bị đóng vì VTY chỉ cho phép SSH.
+
+Kiểm tra trên thiết bị:
+
+```text
+show ip ssh
+show access-lists SSH_FROM_IT
+show users
+show running-config | section line vty
+```
+
+Không đưa mật khẩu hoặc hash của mật khẩu vào repository public. Khi xuất running-config sang file `.txt`, thay secret và password hash bằng `<REDACTED>`.
+
+Commit của milestone:
 
 ```text
 security: restrict SSH management access to the IT VLAN

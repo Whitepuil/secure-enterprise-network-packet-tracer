@@ -1,7 +1,7 @@
 R2-ISP#show running-config
 Building configuration...
 
-Current configuration : 915 bytes
+Current configuration : 955 bytes
 !
 version 15.1
 no service timestamps log datetime msec
@@ -84,7 +84,9 @@ line con 0
 line aux 0
 !
 line vty 0 4
+ exec-timeout 5 0
  login
+ transport input none
 !
 !
 !
